@@ -6,6 +6,7 @@ import MovieView from './Pages/MovieView';
 import Categories from './Pages/Categories';
 import Bookmarked from './Pages/Bookmarked';
 import Navbar from "./Components/Navbar";
+import './App.css';
 
 export default function App() {
   return (

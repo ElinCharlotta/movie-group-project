@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 
 interface MovieProps {
@@ -27,6 +28,7 @@ const Home: React.FC = () => {
         </div>
       ))}
     </div>
+
   )
 }
 
