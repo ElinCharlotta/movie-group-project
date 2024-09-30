@@ -2,11 +2,11 @@ on:
   push:
     branches: [main, master]
 
-defaults:
-  run:
-    workspace_directory: ./movie-project
 
 jobs:
+  defaults:
+  run:
+    workspace_directory: ./movie-project
   deploy:
     runs-on: ubuntu-latest
     permissions:
