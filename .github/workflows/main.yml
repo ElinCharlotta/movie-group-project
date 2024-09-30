@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        workspace_directory: ./movie-project
+        working_directory: ./movie-project
     permissions:
       contents: write
     steps:
