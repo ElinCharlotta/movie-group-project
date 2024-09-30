@@ -1,9 +1,5 @@
-import React from 'react'
-
 function Bookmarked() {
-  return (
-    <div>Bookmarked</div>
-  )
+  return <div>Bookmarked</div>;
 }
 
-export default Bookmarked
+export default Bookmarked;
