@@ -4,11 +4,11 @@ on:
 
 
 jobs:
-  defaults:
-  run:
-    workspace_directory: ./movie-project
   deploy:
     runs-on: ubuntu-latest
+     defaults:
+      run:
+        workspace_directory: ./movie-project
     permissions:
       contents: write
     steps:
