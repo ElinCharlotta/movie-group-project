@@ -2,13 +2,12 @@ on:
   push:
     branches: [main, master]
 
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working_directory: ./movie-project
+        working-directory: ./movie-project
     permissions:
       contents: write
     steps:
