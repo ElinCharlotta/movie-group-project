@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Search } from "lucide-react"
+import { Search } from 'lucide-react'
 import './Styles/Navbar.css'
 
 const Navbar: React.FC = () => {
