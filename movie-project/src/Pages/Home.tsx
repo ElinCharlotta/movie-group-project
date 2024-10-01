@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 // Home.tsx
 import React, { useState, useEffect } from 'react';
 import SimpleSlider from '../Components/SimpleSlider';	
@@ -6,6 +7,14 @@ interface MovieProps {
   title: string;
   thumbnail: string;
   isTrending?: boolean;
+=======
+import React, { useState, useEffect } from 'react'
+import SimpleSlider from '../Components/SimpleSlider'
+interface MovieProps {
+  title: string
+  thumbnail: string
+  isTrending?: boolean
+>>>>>>> Stashed changes
 }
 
 const Home: React.FC = () => {
@@ -28,8 +37,11 @@ const Home: React.FC = () => {
   const recommendedMovies = movies.filter((movie) => !movie.isTrending).slice(4,10);
 
 
+  const trendingMovies = movies.filter(movie=>movie.isTrending)
+
   return (
     <div>
+<<<<<<< Updated upstream
       <section>
         {trendingMovies.length > 0 ? (<>
         <h2>Trending</h2>
@@ -47,3 +59,15 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+=======
+      {/* Trending Section */}
+      <section>
+        <h2>Trending Movies</h2>
+        <SimpleSlider movies={trendingMovies} />
+      </section>
+      </div>
+  )
+}
+
+export default Home
+>>>>>>> Stashed changes
