@@ -1,33 +1,49 @@
-import React, { useState, useEffect } from 'react'
+// Home.tsx
+import React, { useState, useEffect } from 'react';
+import SimpleSlider from '../Components/SimpleSlider';	
+
 interface MovieProps {
-  title: string
-  thumbnail: string
+  title: string;
+  thumbnail: string;
+  isTrending?: boolean;
 }
 
 const Home: React.FC = () => {
-  const [movies, setMovies] = useState<MovieProps[]>([])
-  const [loading, setLoading] = useState(true)
+  const [movies, setMovies] = useState<MovieProps[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    import('../../public/movies.json').then(res => {
-      setMovies(res.default)
-      setLoading(false)
-    })
-  }, []) // Add dependency array to run only once
+    const loadMovies = async () => {
+      const res = await import('../../public/movies.json');
+      setMovies(res.default);
+      setLoading(false);
+    };
+    loadMovies();
+  }, []);
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <div>Loading...</div>;
+
+  const trendingMovies = movies.filter((movie) => movie.isTrending);
+
+  const recommendedMovies = movies.filter((movie) => !movie.isTrending).slice(4,10);
+
 
   return (
     <div>
-      {movies.map((movie, index) => (
-        <div key={index}>
-          <h1>{movie.title}</h1>
-          <img src={movie.thumbnail} alt={movie.title} />
-        </div>
-      ))}
+      <section>
+        {trendingMovies.length > 0 ? (<>
+        <h2>Trending</h2>
+          <SimpleSlider movies={trendingMovies} />
+          <h2>Recommended</h2>
+          <SimpleSlider movies={recommendedMovies} />
+          </>
+
+        ) : (
+          <p>No trending movies available.</p>
+        )}
+      </section>
     </div>
+  );
+};
 
-  )
-}
-
-export default Home
+export default Home;
