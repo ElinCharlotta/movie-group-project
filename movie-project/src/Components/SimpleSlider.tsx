@@ -4,36 +4,25 @@ import React from 'react';
 import Slider from 'react-slick';
 import './Styles/SimpleSlider.css';
 
-<<<<<<< Updated upstream
 // Define the interface for Movie props
-=======
->>>>>>> Stashed changes
 interface MovieProps {
   title: string;
   thumbnail: string;
   isTrending?: boolean;
 }
 
-<<<<<<< Updated upstream
 // Define the interface for SimpleSlider props
-=======
->>>>>>> Stashed changes
 interface SimpleSliderProps {
   movies: MovieProps[];
 }
 
-<<<<<<< Updated upstream
 // SimpleSlider component
 const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
   // Slider settings
-=======
-const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
->>>>>>> Stashed changes
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-<<<<<<< Updated upstream
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
@@ -69,22 +58,3 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
     };
     
     export default SimpleSlider;
-=======
-    slidesToShow: 3,
-    slidesToScroll: 1,
-  };
-
-  return (
-    <Slider {...settings}>
-      {movies.map((movie) => (
-        <div className='slide' key={movie.title}>
-          <h3>{movie.title}</h3>
-          <img src={movie.thumbnail} alt={movie.title} />
-        </div>
-      ))}
-    </Slider>
-  );
-};
-
-export default SimpleSlider;
->>>>>>> Stashed changes
