@@ -18,7 +18,6 @@ const Navbar: React.FC = () => {
           <Menu size={12} />
         </button>
       </div>
-
       <ul className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
         <li>
           <Link to='/' onClick={() => setIsMenuOpen(false)}>
@@ -36,6 +35,12 @@ const Navbar: React.FC = () => {
           </Link>
         </li>
       </ul>
+      <div className='navbar-search'>
+        <input type='text' placeholder='Search Movies...' />
+        <button aria-label='Search'>
+          <Search size={20} className='nav-icon' />
+        </button>
+      </div>
     </nav>
   )
 }
