@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import MovieCard from '../Components/MovieCard/MovieCard'
+
 interface MovieProps {
   title: string
   thumbnail: string
+  year: number
 }
 
 const Home: React.FC = () => {
@@ -13,20 +16,22 @@ const Home: React.FC = () => {
       setMovies(res.default)
       setLoading(false)
     })
-  }, []) // Add dependency array to run only once
+  }, [])
 
   if (loading) return <div>Loading...</div>
 
   return (
     <div>
       {movies.map((movie, index) => (
-        <div key={index}>
-          <h1>{movie.title}</h1>
-          <img src={movie.thumbnail} alt={movie.title} />
-        </div>
+        <MovieCard
+          key={index}
+          title={movie.title}
+          thumbnail={movie.thumbnail}
+          year={movie.year}
+          index={index}
+        />
       ))}
     </div>
-
   )
 }
 
