@@ -4,6 +4,10 @@ interface MovieProps {
   thumbnail: string
 }
 
+const getTrendingMovies = (movies: MovieProps[]) => {
+  return movies.slice(0, 6)
+}
+
 const Home: React.FC = () => {
   const [movies, setMovies] = useState<MovieProps[]>([])
   const [loading, setLoading] = useState(true)
@@ -17,8 +21,23 @@ const Home: React.FC = () => {
 
   if (loading) return <div>Loading...</div>
 
+  const trendingMovies = getTrendingMovies(movies)
+
   return (
     <div>
+      {/* Trending Section */}
+      <section>
+        <h2>Trending Movies</h2>
+        <div className='carousel'>
+          {trendingMovies.map((movie, index) => (
+            <div key={index}>
+              <h3>{movie.title}</h3>
+              <img src={movie.thumbnail} alt={movie.title} />
+            </div>
+          ))}
+        </div>
+      </section>
+
       {movies.map((movie, index) => (
         <div key={index}>
           <h1>{movie.title}</h1>
@@ -26,7 +45,6 @@ const Home: React.FC = () => {
         </div>
       ))}
     </div>
-
   )
 }
 
