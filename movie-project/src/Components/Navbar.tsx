@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, Projector, Menu } from 'lucide-react'
+import { Search, Projector, Menu, Film } from 'lucide-react'
 import './Styles/Navbar.css'
+import moviesData from '../data/movies.json'
 
 interface Movie {
   title: string
@@ -16,15 +17,8 @@ interface Movie {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const [movies, setMovies] = useState<Movie[]>([])
+  const [movies] = useState<Movie[]>(moviesData)
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>([])
-
-  useEffect(() => {
-    fetch('/movie-project/public/movies.json')
-      .then(response => response.json())
-      .then(data => setMovies(data))
-      .catch(error => console.error('Error fetching movies:', error))
-  }, [])
 
   useEffect(() => {
     const results = movies.filter(
@@ -44,6 +38,14 @@ export default function Navbar() {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
+  }
+
+  const handleImageError = (
+    e: React.SyntheticEvent<HTMLImageElement, Event>,
+  ) => {
+    e.currentTarget.onerror = null
+    e.currentTarget.style.display = 'none'
+    e.currentTarget.nextElementSibling?.classList.remove('hidden')
   }
 
   return (
@@ -91,11 +93,17 @@ export default function Navbar() {
         <div className='search-results' role='listbox'>
           {filteredMovies.map((movie, index) => (
             <div key={index} className='search-result-item' role='option'>
-              <img
-                src={movie.thumbnail}
-                alt={`${movie.title} poster`}
-                className='search-result-poster'
-              />
+              <div className='search-result-poster-container'>
+                <img
+                  src={movie.thumbnail}
+                  alt={`${movie.title} poster`}
+                  className='search-result-poster'
+                  onError={handleImageError}
+                />
+                <div className='search-result-poster-fallback hidden'>
+                  <Film size={40} />
+                </div>
+              </div>
               <div className='search-result-info'>
                 <span className='search-result-title'>{movie.title}</span>
                 <span className='search-result-year'>({movie.year})</span>
