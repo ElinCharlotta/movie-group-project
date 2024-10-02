@@ -5,7 +5,7 @@ import Slider from 'react-slick'
 import './SimpleSlider.css'
 import MovieCard from '../MovieCard/MovieCard'
 
-// Define the interface for Movie props
+
 interface MovieCardProps {
   title: string
   year: number
@@ -13,15 +13,16 @@ interface MovieCardProps {
   genre?: string
   synopsis?: string
   thumbnail: string
+  rating: string
   isTrending?: boolean
 }
 
-// Define the interface for SimpleSlider props
+
 interface SimpleSliderProps {
   movies: MovieCardProps[]
 }
 
-// SimpleSlider component
+
 const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
   // Slider settings
   const settings = {
@@ -56,8 +57,8 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
             <MovieCard
               title={movie.title}
               year={movie.year}
-              genre={movie.genre}
               thumbnail={movie.thumbnail}
+              rating={movie.rating}
             />
           </div>
         ))}
