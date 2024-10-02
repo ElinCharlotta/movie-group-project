@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { MovieCardProps } from '../Components/MovieCard/MovieCard'
-import SimpleSlider from '../Components/SimpleSlider/SimpleSlider'
+import { MovieCardProps } from '../../Components/MovieCard/MovieCard'
+import SimpleSlider from '../../Components/SimpleSlider/SimpleSlider'
+import './Home.css'
 
 const Home: React.FC = () => {
   const [movies, setMovies] = useState<MovieCardProps[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    import('../../public/movies.json').then(res => {
+    import('../../../public/movies.json').then(res => {
       setMovies(res.default)
       setLoading(false)
     })
@@ -25,9 +26,9 @@ const Home: React.FC = () => {
       <section>
         {trendingMovies.length > 0 ? (
           <>
-            <h2>Trending</h2>
+            <h2 className='trending-header'>Trending</h2>
             <SimpleSlider movies={trendingMovies} />
-            <h2>Recommended</h2>
+            <h2 className='recommended-header'>Recommended</h2>
             <SimpleSlider movies={recommendedMovies} />
           </>
         ) : (
