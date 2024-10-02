@@ -6,6 +6,7 @@ interface MovieCardProps {
   genre?: string
   thumbnail: string
   index: number
+  synopsis?: string[]
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({
