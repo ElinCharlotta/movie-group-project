@@ -7,12 +7,10 @@ const Home: React.FC = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const loadMovies = async () => {
-      const res = await import('../../public/movies.json')
+    import('../../public/movies.json').then(res => {
       setMovies(res.default)
       setLoading(false)
-    }
-    loadMovies()
+    })
   }, [])
 
   if (loading) return <div>Loading...</div>
