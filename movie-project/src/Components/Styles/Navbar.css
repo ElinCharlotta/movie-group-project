@@ -1,127 +1,140 @@
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #1a1a1a;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.navbar-header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.nav-icon {
-  color: #ffffff;
-}
-
-.navbar-search {
-  display: flex;
-  align-items: center;
-  background-color: #333333;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
-}
-
-.navbar-search input {
-  background-color: transparent;
-  border: none;
-  color: #ffffff;
-  margin-right: 0.5rem;
-  outline: none;
-  width: 100%;
-}
-
-.navbar-search input::placeholder {
-  color: #999999;
-}
-
-.navbar-search button {
-  background-color: transparent;
-  border: none;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.navbar-links {
-  display: flex;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar-links li {
-  margin-left: 1rem;
-}
-
-.navbar-links a {
-  text-decoration: none;
-  color: #ffffff;
-  font-weight: 500;
-  margin: 5px;
-  transition: color 0.3s ease;
-}
-
-.navbar-links a:hover {
-  color: #ff4081;
-}
-
-.mobile-menu-toggle {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    flex-wrap: wrap;
-    padding: 0.5rem;
-  }
-
-  .navbar-header {
-    width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    padding: 1rem 2rem;
+    background-color: #1a1a1a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
-
+  
+  .navbar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
   .mobile-menu-toggle {
-    display: block;
+    display: none;
     background: none;
     border: none;
     color: #ffffff;
-    font-size: 1.5rem;
     cursor: pointer;
   }
-
+  
+  .nav-icon {
+    color: #ffffff;
+  }
+  
   .navbar-search {
-    order: 1;
-    width: 100%;
-    margin-bottom: 0.5rem;
-  }
-
-  .navbar-links {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.5rem 0;
-  }
-
-  .navbar-links.active {
     display: flex;
+    align-items: center;
+    background-color: #333333;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    margin-left: auto;
   }
-
+  
+  .navbar-search input {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    margin-right: 0.5rem;
+    outline: none;
+    width: 200px;
+  }
+  
+  .navbar-search input::placeholder {
+    color: #999999;
+  }
+  
+  .navbar-search button {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-links {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
   .navbar-links li {
-    margin: 0.5rem 0;
+    margin-left: 1rem;
   }
-
+  
   .navbar-links a {
-    display: block;
-    padding: 0.5rem;
-    width: 100%;
-    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    transition: color 0.3s ease;
   }
-}
+  
+  .navbar-links a:hover {
+    color: #ff4081;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 1rem;
+    }
+  
+    .navbar-header {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+  
+    .navbar-header .nav-icon {
+      grid-column: 2;
+      justify-self: center;
+    }
+  
+    .mobile-menu-toggle {
+      display: block;
+      grid-column: 3;
+      justify-self: end;
+    }
+  
+    .navbar-links {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 0;
+    }
+  
+    .navbar-links.active {
+      display: flex;
+    }
+  
+    .navbar-links li {
+      margin: 0.5rem 0;
+    }
+  
+    .navbar-links a {
+      display: block;
+      padding: 0.5rem;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .navbar-search {
+      order: 1;
+      width: 100%;
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+  
+    .navbar-search input {
+      width: 100%;
+      font-size: 16px;
+    }
+  }
