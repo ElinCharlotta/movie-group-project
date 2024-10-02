@@ -8,6 +8,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: "/movie-group-project/",
   plugins: [react()],
+  publicDir: "public",
   test: {
     globals: true,
     environment: 'jsdom',
