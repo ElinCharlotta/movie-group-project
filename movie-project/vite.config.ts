@@ -1,4 +1,3 @@
-
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
@@ -6,13 +5,13 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: "/movie-group-project/",
+  base: '/movie-group-project',
   plugins: [react()],
-  publicDir: "public",
+  publicDir: 'public',
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: "./src/test/setup.ts",
+    setupFiles: './src/test/setup.ts',
     css: true,
   },
 })
