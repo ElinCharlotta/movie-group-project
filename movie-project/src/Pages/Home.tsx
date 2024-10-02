@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import MovieCard from '../Components/MovieCard/MovieCard'
-
-interface MovieProps {
-  title: string
-  thumbnail: string
-  year: number
-}
-
-const getTrendingMovies = (movies: MovieProps[]) => {
-  return movies.slice(0, 6)
-}
+import { MovieCardProps } from '../Components/MovieCard/MovieCard'
+import SimpleSlider from '../Components/SimpleSlider/SimpleSlider'
 
 const Home: React.FC = () => {
-  const [movies, setMovies] = useState<MovieProps[]>([])
+  const [movies, setMovies] = useState<MovieCardProps[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -24,32 +15,25 @@ const Home: React.FC = () => {
 
   if (loading) return <div>Loading...</div>
 
-  const trendingMovies = getTrendingMovies(movies)
+  const trendingMovies = movies.filter(movie => movie.isTrending)
+  const recommendedMovies = movies
+    .filter(movie => !movie.isTrending)
+    .slice(4, 10)
 
   return (
     <div>
-      {/* Trending Section */}
       <section>
-        <h2>Trending Movies</h2>
-        <div className='carousel'>
-          {trendingMovies.map((movie, index) => (
-            <div key={index}>
-              <h3>{movie.title}</h3>
-              <img src={movie.thumbnail} alt={movie.title} />
-            </div>
-          ))}
-        </div>
+        {trendingMovies.length > 0 ? (
+          <>
+            <h2>Trending</h2>
+            <SimpleSlider movies={trendingMovies} />
+            <h2>Recommended</h2>
+            <SimpleSlider movies={recommendedMovies} />
+          </>
+        ) : (
+          <p>No trending movies available.</p>
+        )}
       </section>
-
-      {movies.map((movie, index) => (
-        <MovieCard
-          key={index}
-          title={movie.title}
-          thumbnail={movie.thumbnail}
-          year={movie.year}
-          index={index}
-        />
-      ))}
     </div>
   )
 }

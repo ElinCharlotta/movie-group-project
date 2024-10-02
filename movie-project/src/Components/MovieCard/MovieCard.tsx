@@ -1,11 +1,14 @@
-interface MovieCardProps {
+import './MovieCard.css'
+
+export interface MovieCardProps {
   title: string
   year: number
   rating?: string
   actors?: string[]
   genre?: string
   thumbnail: string
-  index: number
+  index?: number
+  isTrending?: boolean
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({
@@ -13,15 +16,14 @@ const MovieCard: React.FC<MovieCardProps> = ({
   year,
   genre,
   thumbnail,
-  index,
 }) => {
   return (
     <div className='card-container'>
-      <h2>
-        {index + 1}. {title} ({year})
-      </h2>
+      <h3>
+        {title} ({year})
+      </h3>
       <img src={thumbnail} alt={`${title} thumbnail`} />
-      <p>Genre: {genre}</p>
+      <p className='movie-genre'>Genre: {genre}</p>
     </div>
   )
 }
