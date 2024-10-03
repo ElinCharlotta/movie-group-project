@@ -10,6 +10,7 @@ export interface MovieCardProps {
   thumbnail: string
   index?: number
   isTrending?: boolean
+  synopsis?: string
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({

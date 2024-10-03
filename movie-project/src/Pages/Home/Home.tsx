@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { MovieCardProps } from '../../Components/MovieCard/MovieCard'
 import SimpleSlider from '../../Components/SimpleSlider/SimpleSlider'
+import Hero from '../../Components/Hero/Hero'
 import './Home.css'
 
 const Home: React.FC = () => {
@@ -16,13 +17,28 @@ const Home: React.FC = () => {
 
   if (loading) return <div>Loading...</div>
 
+
   const trendingMovies = movies.filter(movie => movie.isTrending)
-  const recommendedMovies = movies
-    .filter(movie => !movie.isTrending)
-    .slice(4, 10)
+  const recommendedMovies = movies.filter(movie => !movie.isTrending).slice(0, 10)
+
+  
+  const heroMovie = movies.filter(movie => !movie.isTrending)[12] 
 
   return (
     <div>
+      {/* Hero-sektion */}
+      {heroMovie && (
+        <Hero
+          title={heroMovie.title}
+          actors={heroMovie.actors}
+          year={heroMovie.year}
+          synopsis={heroMovie.synopsis}
+          backgroundImage={heroMovie.thumbnail}
+          rating={heroMovie.rating}
+        />
+      )}
+
+      {/* Sektion för trending och recommended movies */}
       <section>
         {trendingMovies.length > 0 ? (
           <>
