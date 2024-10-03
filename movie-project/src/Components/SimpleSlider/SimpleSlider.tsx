@@ -1,30 +1,15 @@
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
 import React from 'react'
 import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import './SimpleSlider.css'
-import MovieCard from '../MovieCard/MovieCard'
-
-
-interface MovieCardProps {
-  title: string
-  year: number
-  actors?: string[]
-  genre?: string
-  synopsis?: string
-  thumbnail: string
-  rating: string
-  isTrending?: boolean
-}
-
+import MovieCard, { MovieCardProps } from '../MovieCard/MovieCard'
 
 interface SimpleSliderProps {
   movies: MovieCardProps[]
 }
 
-
 const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
-  // Slider settings
   const settings = {
     dots: true,
     infinite: true,
@@ -52,13 +37,18 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
   return (
     <div className='slider'>
       <Slider {...settings}>
-        {movies.map((movie, index) => (
-          <div className='slide' key={index}>
+        {movies.map((movie) => (
+          <div className='slide' key={movie.id}>
             <MovieCard
+              id={movie.id}
               title={movie.title}
               year={movie.year}
               thumbnail={movie.thumbnail}
               rating={movie.rating}
+              genre={movie.genre}
+              actors={movie.actors}
+              synopsis={movie.synopsis}
+              isTrending={movie.isTrending}
             />
           </div>
         ))}
