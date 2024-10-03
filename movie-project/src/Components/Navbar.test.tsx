@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import Navbar from './Navbar'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -32,19 +32,48 @@ vi.mock('../data/movies.json', () => {
 })
 
 describe('Navbar Component - Desktop View', () => {
-  it('renders all navigation links directly without needing to toggle a menu', () => {
+  // Render the Navbar within a Router before each test
+  beforeEach(() => {
     render(
       <Router>
         <Navbar />
       </Router>,
     )
+  })
 
-    // Check that the primary navigation links are visible
-    expect(screen.getByText('Home')).toBeInTheDocument()
-    expect(screen.getByText('Bookmarked')).toBeInTheDocument()
-    expect(screen.getByText('Categories')).toBeInTheDocument()
+  it('renders all navigation links directly without needing to toggle a menu', () => {
+    // Verify that all main links are immediately visible
+    const homeLink = screen.getByRole('link', { name: /home/i })
+    const bookmarkedLink = screen.getByRole('link', { name: /bookmarked/i })
+    const categoriesLink = screen.getByRole('link', { name: /categories/i })
 
-    // Check for presence of search functionality
-    expect(screen.getByLabelText('Search movies')).toBeInTheDocument()
+    expect(homeLink).toBeInTheDocument()
+    expect(homeLink).toHaveAttribute('href', '/')
+    expect(bookmarkedLink).toBeInTheDocument()
+    expect(bookmarkedLink).toHaveAttribute('href', '/bookmarked')
+    expect(categoriesLink).toBeInTheDocument()
+    expect(categoriesLink).toHaveAttribute('href', '/categories')
+  })
+
+  it('checks for the presence of the search functionality', () => {
+    // Verify that the search input is present and correctly labeled
+    const searchInput = screen.getByRole('searchbox', {
+      name: /search movies/i,
+    })
+    expect(searchInput).toBeInTheDocument()
+
+    //Check that the search button is there
+    const searchButton = screen.getByRole('button', { name: /search/i })
+    expect(searchButton).toBeInTheDocument()
+  })
+
+  it('displays the app logo', () => {
+    const logo = screen.getByTestId('app-logo')
+    expect(logo).toBeInTheDocument()
+  })
+
+  it('does not display the mobile menu toggle button', () => {
+    const menuToggle = screen.getByTestId('mobile-menu-toggle')
+    expect(menuToggle).toBeInTheDocument()
   })
 })

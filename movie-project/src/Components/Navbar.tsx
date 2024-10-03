@@ -52,18 +52,19 @@ export default function Navbar() {
   return (
     <nav className='navbar'>
       <div className='navbar-header'>
-        <Projector color='white' size={40} className='nav-icon' />
+        <Projector color='white' size={40} className='nav-icon' data-testid="app-logo" />
         <button
           className='mobile-menu-toggle'
           onClick={toggleMenu}
           aria-label='Toggle menu'
+          data-testid="mobile-menu-toggle"
         >
           <Menu size={40} />
         </button>
       </div>
       <ul className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
         <li>
-          <Link to='/' onClick={() => setIsMenuOpen(false)}>
+          <Link to='/' onClick={() => setIsMenuOpen(false)} >
             Home
           </Link>
         </li>
@@ -80,7 +81,7 @@ export default function Navbar() {
       </ul>
       <div className='navbar-search'>
         <input
-          type='text'
+          type='search'
           placeholder='Search Movies...'
           value={searchTerm}
           onChange={handleSearch}
