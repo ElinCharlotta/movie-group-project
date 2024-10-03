@@ -4,6 +4,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import Navbar from './Navbar'
 import { BrowserRouter as Router } from 'react-router-dom'
+import userEvent from '@testing-library/user-event'
 
 vi.mock('../data/movies.json', () => {
   return {
@@ -55,7 +56,7 @@ describe('Navbar Component - Desktop View', () => {
     expect(categoriesLink).toHaveAttribute('href', '/categories')
   })
 
-  it('checks for the presence of the search functionality', () => {
+  it('checks for the presence of the search functionality', async () => {
     // Verify that the search input is present and correctly labeled
     const searchInput = screen.getByRole('searchbox', {
       name: /search movies/i,
@@ -65,6 +66,20 @@ describe('Navbar Component - Desktop View', () => {
     //Check that the search button is there
     const searchButton = screen.getByRole('button', { name: /search/i })
     expect(searchButton).toBeInTheDocument()
+
+    const user = userEvent.setup()
+    await user.type(searchInput, 'Shawnshank')
+    expect(
+      await screen.findByText('The Shawshank Redemption'),
+    ).toBeInTheDocument()
+    expect(screen.queryByText('The Godfather')).not.toBeInTheDocument()
+
+    await user.clear(searchInput)
+    await user.type(searchInput, 'Godfather')
+    expect(await screen.findByText('The Godfather')).toBeInTheDocument()
+    expect(
+      screen.queryByText('The Shawshank Redemption'),
+    ).not.toBeInTheDocument()
   })
 
   it('displays the app logo', () => {
