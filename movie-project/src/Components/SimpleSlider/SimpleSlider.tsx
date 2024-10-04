@@ -3,28 +3,13 @@ import 'slick-carousel/slick/slick-theme.css'
 import React from 'react'
 import Slider from 'react-slick'
 import './SimpleSlider.css'
-import MovieCard from '../MovieCard/MovieCard'
-
-
-interface MovieCardProps {
-  title: string
-  year: number
-  actors?: string[]
-  genre?: string
-  synopsis?: string
-  thumbnail: string
-  rating: string
-  isTrending?: boolean
-}
-
+import MovieCard, { MovieCardProps } from '../MovieCard/MovieCard'
 
 interface SimpleSliderProps {
-  movies: MovieCardProps[]
+  movies: Omit<MovieCardProps, 'isBookmarked' | 'onBookmark'>[]
 }
 
-
 const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
-  // Slider settings
   const settings = {
     dots: true,
     infinite: true,
@@ -53,12 +38,14 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
     <div className='slider'>
       <Slider {...settings}>
         {movies.map((movie, index) => (
-          <div className='slide' key={index}>
+          <div className='slide' key={`${movie.title}-${movie.year}-${index}`}>
             <MovieCard
-              title={movie.title}
-              year={movie.year}
-              thumbnail={movie.thumbnail}
-              rating={movie.rating}
+              {...movie}
+              isBookmarked={false}
+              onBookmark={() => {
+                // Implement bookmark functionality here
+                console.log(`Bookmarked: ${movie.title}`)
+              }}
             />
           </div>
         ))}

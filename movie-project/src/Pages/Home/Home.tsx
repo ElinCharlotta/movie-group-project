@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { MovieCardProps } from '../../Components/MovieCard/MovieCard'
 import SimpleSlider from '../../Components/SimpleSlider/SimpleSlider'
 import Hero from '../../Components/Hero/Hero'
 import './Home.css'
 
-const Home: React.FC = () => {
-  const [movies, setMovies] = useState<MovieCardProps[]>([])
+interface Movie {
+  title: string
+  year: number
+  actors: string[]
+  genre: string
+  synopsis: string
+  thumbnail: string
+  rating: string
+  isTrending: boolean
+}
+
+interface HomeProps {
+  bookmarkedMovies: string[]
+  toggleBookmark: (movieTitle: string) => void
+}
+
+const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
+  const [movies, setMovies] = useState<Movie[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -17,16 +32,15 @@ const Home: React.FC = () => {
 
   if (loading) return <div>Loading...</div>
 
-
   const trendingMovies = movies.filter(movie => movie.isTrending)
-  const recommendedMovies = movies.filter(movie => !movie.isTrending).slice(0, 10)
+  const recommendedMovies = movies
+    .filter(movie => !movie.isTrending)
+    .slice(0, 10)
 
-  
-  const heroMovie = movies.filter(movie => !movie.isTrending)[12] 
+  const heroMovie = movies.filter(movie => !movie.isTrending)[12]
 
   return (
     <div>
-      {/* Hero-sektion */}
       {heroMovie && (
         <Hero
           title={heroMovie.title}
@@ -38,14 +52,25 @@ const Home: React.FC = () => {
         />
       )}
 
-      {/* Sektion för trending och recommended movies */}
       <section>
         {trendingMovies.length > 0 ? (
           <>
             <h2 className='trending-header'>Trending</h2>
-            <SimpleSlider movies={trendingMovies} />
+            <SimpleSlider
+              movies={trendingMovies.map(movie => ({
+                ...movie,
+                isBookmarked: bookmarkedMovies.includes(movie.title),
+                onBookmark: () => toggleBookmark(movie.title),
+              }))}
+            />
             <h2 className='recommended-header'>Recommended</h2>
-            <SimpleSlider movies={recommendedMovies} />
+            <SimpleSlider
+              movies={recommendedMovies.map(movie => ({
+                ...movie,
+                isBookmarked: bookmarkedMovies.includes(movie.title),
+                onBookmark: () => toggleBookmark(movie.title),
+              }))}
+            />
           </>
         ) : (
           <p>No trending movies available.</p>
