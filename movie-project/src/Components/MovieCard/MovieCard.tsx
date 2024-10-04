@@ -8,44 +8,46 @@ export interface MovieCardProps {
   rating: string
   thumbnail: string
   isBookmarked: boolean
-  onBookmark: () => void
+  onBookmark: (title: string) => void
   actors?: string[]
   genre?: string
   synopsis?: string
   isTrending?: boolean
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({
-  title,
-  year,
-  rating,
-  thumbnail,
-  isBookmarked,
+const MovieCard: React.FC<MovieCardProps> = ({ 
+  title, 
+  year, 
+  rating, 
+  thumbnail, 
+  isBookmarked, 
   onBookmark,
-  genre,
+  genre
 }) => {
+  const handleBookmark = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    onBookmark(title)
+  }
+
   return (
-    <div className='card-container'>
-      <div className='thumbnail-wrapper'>
-        <img src={thumbnail} alt={title} className='thumbnail' />
-        <div className='rating-overlay'>
-          <p className='rating'>{rating}</p>
+    <div className="card-container">
+      <div className="thumbnail-wrapper">
+        <img src={thumbnail} alt={title} className="thumbnail" />
+        <div className="rating-overlay">
+          <p className="rating">{rating}</p>
         </div>
-        <button
-          onClick={onBookmark}
+        <button 
+          onClick={handleBookmark}
           className={`bookmark-button ${isBookmarked ? 'bookmarked' : ''}`}
-          aria-label={
-            isBookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'
-          }
+          aria-label={isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"}
         >
-          <Bookmark
-            className={`bookmark-icon ${isBookmarked ? 'filled' : ''}`}
-          />
+          <Bookmark className={`bookmark-icon ${isBookmarked ? 'filled' : ''}`} />
         </button>
       </div>
-      <h3 className='movie-title'>{title}</h3>
-      <p className='year'>{year}</p>
-      {genre && <p className='movie-genre'>{genre}</p>}
+      <h3 className="movie-title">{title}</h3>
+      <p className="year">{year}</p>
+      {genre && <p className="movie-genre">{genre}</p>}
     </div>
   )
 }

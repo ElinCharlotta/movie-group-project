@@ -60,7 +60,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
               movies={trendingMovies.map(movie => ({
                 ...movie,
                 isBookmarked: bookmarkedMovies.includes(movie.title),
-                onBookmark: () => toggleBookmark(movie.title),
+                onBookmark: toggleBookmark,
               }))}
             />
             <h2 className='recommended-header'>Recommended</h2>
@@ -68,7 +68,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
               movies={recommendedMovies.map(movie => ({
                 ...movie,
                 isBookmarked: bookmarkedMovies.includes(movie.title),
-                onBookmark: () => toggleBookmark(movie.title),
+                onBookmark: toggleBookmark,
               }))}
             />
           </>

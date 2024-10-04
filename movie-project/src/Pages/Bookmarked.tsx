@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import SimpleSlider from '../Components/SimpleSlider/SimpleSlider'
-import './Bookmarked.css'
 
 interface Movie {
   title: string

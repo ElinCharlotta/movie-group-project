@@ -6,7 +6,11 @@ export const useBookmarks = () => {
   useEffect(() => {
     const storedBookmarks = localStorage.getItem('bookmarkedMovies')
     if (storedBookmarks) {
-      setBookmarkedMovies(JSON.parse(storedBookmarks))
+      const parsedBookmarks = JSON.parse(storedBookmarks)
+      setBookmarkedMovies(parsedBookmarks)
+      console.log('Loaded bookmarks from localStorage:', parsedBookmarks)
+    } else {
+      console.log('No bookmarks found in localStorage')
     }
   }, [])
 
@@ -20,7 +24,7 @@ export const useBookmarks = () => {
 
       localStorage.setItem('bookmarkedMovies', JSON.stringify(newBookmarks))
       
-      console.log('Updated bookmarks in local storage:', newBookmarks)
+      console.log('Updated bookmarks in localStorage:', newBookmarks)
 
       return newBookmarks
     })

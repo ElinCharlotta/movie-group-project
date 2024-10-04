@@ -1,13 +1,14 @@
+import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home/Home'
 import Categories from './Pages/Categories'
 import Bookmarked from './Pages/Bookmarked'
 import Navbar from './Components/Navbar'
-import { useBookmarks } from './hooks/useBookmark'
+import { useBookmarks } from './hooks/useBookmarks'
 import './App.css'
 
 export default function App() {
-  const { bookmarked, toggleBookmark } = useBookmarks()
+  const { bookmarkedMovies, toggleBookmark } = useBookmarks()
 
   return (
     <div className='App'>

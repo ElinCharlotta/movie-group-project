@@ -6,7 +6,7 @@ import './SimpleSlider.css'
 import MovieCard, { MovieCardProps } from '../MovieCard/MovieCard'
 
 interface SimpleSliderProps {
-  movies: Omit<MovieCardProps, 'isBookmarked' | 'onBookmark'>[]
+  movies: (Omit<MovieCardProps, 'onBookmark'> & { onBookmark: (title: string) => void })[]
 }
 
 const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
@@ -39,14 +39,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
       <Slider {...settings}>
         {movies.map((movie, index) => (
           <div className='slide' key={`${movie.title}-${movie.year}-${index}`}>
-            <MovieCard
-              {...movie}
-              isBookmarked={false}
-              onBookmark={() => {
-                // Implement bookmark functionality here
-                console.log(`Bookmarked: ${movie.title}`)
-              }}
-            />
+            <MovieCard {...movie} />
           </div>
         ))}
       </Slider>
