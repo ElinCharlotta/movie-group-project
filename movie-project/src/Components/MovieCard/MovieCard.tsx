@@ -1,8 +1,10 @@
 import React from 'react'
 import { Bookmark } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import './MovieCard.css'
 
 export interface MovieCardProps {
+  id: number
   title: string
   year: number
   rating: string
@@ -16,6 +18,7 @@ export interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ 
+  id,
   title, 
   year, 
   rating, 
@@ -24,6 +27,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
   onBookmark,
   genre
 }) => {
+  const navigate = useNavigate()
   const fallbackThumbnail =
     'https://www.shutterstock.com/image-vector/illustration-35mm-film-frame-broken-600nw-293386859.jpg'
 
@@ -33,8 +37,12 @@ const MovieCard: React.FC<MovieCardProps> = ({
     onBookmark(title)
   }
 
+  const handleClick = () => {
+    navigate(`/movie/${id}`)
+  }
+
   return (
-    <div className="card-container">
+    <div className="card-container" onClick={handleClick}>
       <div className="thumbnail-wrapper">
         <img 
           src={thumbnail} 

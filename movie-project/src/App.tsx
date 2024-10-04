@@ -5,6 +5,7 @@ import Categories from './Pages/Categories'
 import Bookmarked from './Pages/Bookmarked'
 import Navbar from './Components/Navbar'
 import { useBookmarks } from './hooks/useBookmarks'
+import MovieView from './Pages/MovieView'
 import './App.css'
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
             />
           }
         />
+        <Route path='/movie/:id' element={<MovieView />} />
       </Routes>
     </div>
   )

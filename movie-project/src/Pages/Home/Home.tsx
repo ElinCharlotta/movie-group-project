@@ -4,14 +4,15 @@ import Hero from '../../Components/Hero/Hero'
 import './Home.css'
 
 interface Movie {
+  id: number
   title: string
   year: number
+  rating: string
   actors: string[]
   genre: string
   synopsis: string
   thumbnail: string
-  rating: string
-  isTrending: boolean
+  isTrending?: boolean
 }
 
 interface HomeProps {
@@ -24,8 +25,12 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    import('../../../public/movies.json').then(res => {
-      setMovies(res.default)
+    import('../../data/movies.json').then(res => {
+      const moviesWithId: Movie[] = res.default.map((movie: Omit<Movie, 'id'>, index: number) => ({
+        ...movie,
+        id: index + 1 // Add an id starting from 1
+      }))
+      setMovies(moviesWithId)
       setLoading(false)
     })
   }, [])
@@ -33,10 +38,8 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
   if (loading) return <div>Loading...</div>
 
   const trendingMovies = movies.filter(movie => movie.isTrending)
-  const recommendedMovies = movies
-    .filter(movie => !movie.isTrending)
-    .slice(0, 10)
-
+  const recommendedMovies = movies.filter(movie => !movie.isTrending).slice(0, 10)
+  
   const heroMovie = movies.filter(movie => !movie.isTrending)[12]
 
   return (
@@ -60,7 +63,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
               movies={trendingMovies.map(movie => ({
                 ...movie,
                 isBookmarked: bookmarkedMovies.includes(movie.title),
-                onBookmark: toggleBookmark,
+                onBookmark: () => toggleBookmark(movie.title),
               }))}
             />
             <h2 className='recommended-header'>Recommended</h2>
@@ -68,7 +71,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
               movies={recommendedMovies.map(movie => ({
                 ...movie,
                 isBookmarked: bookmarkedMovies.includes(movie.title),
-                onBookmark: toggleBookmark,
+                onBookmark: () => toggleBookmark(movie.title),
               }))}
             />
           </>

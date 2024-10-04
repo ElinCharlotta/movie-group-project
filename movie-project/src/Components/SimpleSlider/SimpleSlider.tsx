@@ -1,7 +1,7 @@
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
 import React from 'react'
 import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import './SimpleSlider.css'
 import MovieCard, { MovieCardProps } from '../MovieCard/MovieCard'
 
@@ -37,9 +37,21 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
   return (
     <div className='slider'>
       <Slider {...settings}>
-        {movies.map((movie, index) => (
-          <div className='slide' key={`${movie.title}-${movie.year}-${index}`}>
-            <MovieCard {...movie} />
+        {movies.map((movie) => (
+          <div className='slide' key={movie.id}>
+            <MovieCard
+              id={movie.id}
+              title={movie.title}
+              year={movie.year}
+              thumbnail={movie.thumbnail}
+              rating={movie.rating}
+              genre={movie.genre}
+              actors={movie.actors}
+              synopsis={movie.synopsis}
+              isTrending={movie.isTrending}
+              isBookmarked={movie.isBookmarked}
+              onBookmark={movie.onBookmark}
+            />
           </div>
         ))}
       </Slider>
