@@ -17,12 +17,13 @@ const Home: React.FC = () => {
 
   if (loading) return <div>Loading...</div>
 
-
   const trendingMovies = movies.filter(movie => movie.isTrending)
-  const recommendedMovies = movies.filter(movie => !movie.isTrending).slice(0, 10)
 
-  
-  const heroMovie = movies.filter(movie => !movie.isTrending)[12] 
+  const nonTrendingMovies = movies.filter(movie => !movie.isTrending)
+  nonTrendingMovies.sort(() => Math.random() - 0.5) 
+  const recommendedMovies: MovieCardProps[] = nonTrendingMovies.slice(0, 10)
+
+  const heroMovie = nonTrendingMovies[Math.floor(Math.random() * nonTrendingMovies.length)];
 
   return (
     <div>
