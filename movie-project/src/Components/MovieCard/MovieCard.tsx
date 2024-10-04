@@ -20,22 +20,29 @@ const MovieCard: React.FC<MovieCardProps> = ({
   genre,
   thumbnail,
 }) => {
+  const fallbackThumbnail =
+    'https://www.shutterstock.com/image-vector/illustration-35mm-film-frame-broken-600nw-293386859.jpg'
+
   return (
     <div className='card-container'>
       <div className='thumbnail-wrapper'>
-        <img src={thumbnail} alt={`${title} thumbnail`} />
+        <img
+          src={thumbnail}
+          alt={`${title} thumbnail`}
+          onError={e => (e.currentTarget.src = fallbackThumbnail)}
+        />
         <h3>{title}</h3>
-          <p className='year'>{year}</p>
-          <div className='rating-overlay'>
+        <p className='year'>{year}</p>
+        <div className='rating-overlay'>
           <p className='rating'>{rating}</p>
         </div>
-        </div>
+      </div>
       <p className='movie-genre'>{genre}</p>
     </div>
-  );
-};
+  )
+}
 
-export default MovieCard;
+export default MovieCard
 
 //  Har med de sakerna ifrån "db.en" jag tänkte var användbart.
 // har tagit med index, ifall man vill göra en delete eller liknande längre fram
