@@ -10,17 +10,21 @@ interface SimpleSliderProps {
 }
 
 const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
+  const uniqueMovies = movies.filter((movie, index, self) =>
+    index === self.findIndex((t) => t.id === movie.id)
+  )
+
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: uniqueMovies.length > 4,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: Math.min(4, uniqueMovies.length),
     slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: Math.min(3, uniqueMovies.length),
           slidesToScroll: 1,
         },
       },
@@ -34,21 +38,25 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
     ],
   }
 
+  if (uniqueMovies.length === 1) {
+    return (
+      <div className='single-movie-container'>
+        <MovieCard
+          {...uniqueMovies[0]}
+          isBookmarked={uniqueMovies[0].isBookmarked}
+          onBookmark={uniqueMovies[0].onBookmark}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className='slider'>
       <Slider {...settings}>
-        {movies.map((movie) => (
+        {uniqueMovies.map((movie) => (
           <div className='slide' key={movie.id}>
             <MovieCard
-              id={movie.id}
-              title={movie.title}
-              year={movie.year}
-              thumbnail={movie.thumbnail}
-              rating={movie.rating}
-              genre={movie.genre}
-              actors={movie.actors}
-              synopsis={movie.synopsis}
-              isTrending={movie.isTrending}
+              {...movie}
               isBookmarked={movie.isBookmarked}
               onBookmark={movie.onBookmark}
             />

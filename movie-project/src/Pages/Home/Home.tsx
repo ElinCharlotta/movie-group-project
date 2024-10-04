@@ -28,7 +28,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
     import('../../data/movies.json').then(res => {
       const moviesWithId: Movie[] = res.default.map((movie: Omit<Movie, 'id'>, index: number) => ({
         ...movie,
-        id: index + 1 // Add an id starting from 1
+        id: index + 1
       }))
       setMovies(moviesWithId)
       setLoading(false)
@@ -40,7 +40,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
   const trendingMovies = movies.filter(movie => movie.isTrending)
   const recommendedMovies = movies.filter(movie => !movie.isTrending).slice(0, 10)
   
-  const heroMovie = movies.filter(movie => !movie.isTrending)[12]
+  const heroMovie = movies.find(movie => !movie.isTrending)
 
   return (
     <div>
