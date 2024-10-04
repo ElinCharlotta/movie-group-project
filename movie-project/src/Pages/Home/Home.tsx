@@ -40,16 +40,15 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
 
   const trendingMovies = movies.filter(movie => movie.isTrending)
 
-
   const nonTrendingMovies = movies.filter(movie => !movie.isTrending);
-  nonTrendingMovies.sort(() => Math.random() - 0.5); 
-  const recommendedMovies: MovieCardProps[] = nonTrendingMovies.slice(0, 10).map(movie => ({
-    ...movie,
-    isBookmarked: bookmarkedMovies.includes(movie.title),
-    onBookmark: () => toggleBookmark(movie.title)
-  }));
 
-
+  const recommendedMovies = (() => {
+    const shuffledMovies = nonTrendingMovies.sort(() => Math.random() - 0.5);
+    return shuffledMovies.slice(0, 10).map(movie => ({
+      ...movie,
+    }));
+  })();
+  
   const heroMovie = nonTrendingMovies[Math.floor(Math.random() * nonTrendingMovies.length)];
 
   return (
