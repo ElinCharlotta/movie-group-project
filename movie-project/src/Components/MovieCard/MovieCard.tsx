@@ -24,6 +24,9 @@ const MovieCard: React.FC<MovieCardProps> = ({
   onBookmark,
   genre
 }) => {
+  const fallbackThumbnail =
+    'https://www.shutterstock.com/image-vector/illustration-35mm-film-frame-broken-600nw-293386859.jpg'
+
   const handleBookmark = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
@@ -33,7 +36,12 @@ const MovieCard: React.FC<MovieCardProps> = ({
   return (
     <div className="card-container">
       <div className="thumbnail-wrapper">
-        <img src={thumbnail} alt={title} className="thumbnail" />
+        <img 
+          src={thumbnail} 
+          alt={`${title} thumbnail`} 
+          className="thumbnail"
+          onError={(e) => (e.currentTarget.src = fallbackThumbnail)}
+        />
         <div className="rating-overlay">
           <p className="rating">{rating}</p>
         </div>
@@ -53,6 +61,3 @@ const MovieCard: React.FC<MovieCardProps> = ({
 }
 
 export default MovieCard
-//  Har med de sakerna ifrån "db.en" jag tänkte var användbart.
-// har tagit med index, ifall man vill göra en delete eller liknande längre fram
-//
