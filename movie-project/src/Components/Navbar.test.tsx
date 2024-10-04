@@ -1,39 +1,12 @@
 import React from 'react'
-import '@testing-library/jest-dom'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import Navbar from './Navbar'
-import { BrowserRouter as Router } from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
-
-vi.mock('../data/movies.json', () => {
-  return {
-    default: [
-      {
-        title: 'The Shawshank Redemption',
-        year: 1994,
-        rating: 'R',
-        actors: ['Tim Robbins', 'Morgan Freeman', 'Bob Gunton'],
-        genre: 'Drama',
-        synopsis:
-          'Over the course of several years, two convicts form a friendship...',
-        thumbnail: 'https://example.com/shawshank.jpg',
-      },
-      {
-        title: 'The Godfather',
-        year: 1972,
-        rating: 'R',
-        actors: ['Marlon Brando', 'Al Pacino', 'James Caan'],
-        genre: 'Crime, Drama',
-        synopsis: 'Don Vito Corleone, head of a mafia family...',
-        thumbnail: 'https://example.com/godfather.jpg',
-      },
-    ],
-  }
-})
+import { BrowserRouter as Router } from 'react-router-dom'
+import Navbar from './Navbar'
+import '../test/setup'
 
 describe('Navbar Component - Desktop View', () => {
-  // Render the Navbar within a Router before each test
   beforeEach(() => {
     render(
       <Router>
@@ -43,7 +16,6 @@ describe('Navbar Component - Desktop View', () => {
   })
 
   it('renders all navigation links directly without needing to toggle a menu', () => {
-    // Verify that all main links are immediately visible
     const homeLink = screen.getByRole('link', { name: /home/i })
     const bookmarkedLink = screen.getByRole('link', { name: /bookmarked/i })
     const categoriesLink = screen.getByRole('link', { name: /categories/i })
@@ -57,18 +29,18 @@ describe('Navbar Component - Desktop View', () => {
   })
 
   it('checks for the presence of the search functionality', async () => {
-    // Verify that the search input is present and correctly labeled
     const searchInput = screen.getByRole('searchbox', {
       name: /search movies/i,
     })
     expect(searchInput).toBeInTheDocument()
 
-    //Check that the search button is there
     const searchButton = screen.getByRole('button', { name: /search/i })
     expect(searchButton).toBeInTheDocument()
 
     const user = userEvent.setup()
-    await user.type(searchInput, 'Shawnshank')
+    await user.type(searchInput, 'Shawshank')
+    await user.click(searchButton)
+
     expect(
       await screen.findByText('The Shawshank Redemption'),
     ).toBeInTheDocument()
@@ -76,6 +48,8 @@ describe('Navbar Component - Desktop View', () => {
 
     await user.clear(searchInput)
     await user.type(searchInput, 'Godfather')
+    await user.click(searchButton)
+
     expect(await screen.findByText('The Godfather')).toBeInTheDocument()
     expect(
       screen.queryByText('The Shawshank Redemption'),

@@ -1,8 +1,10 @@
-import { afterEach } from 'vitest'
-import { cleanup } from '@testing-library/react'
-import '@testing-library/jest-dom/vitest'
+import '@testing-library/jest-dom'
+import { beforeAll, afterEach, afterAll } from 'vitest'
+import { setupServer } from 'msw/node'
+import { handlers } from '../mocks/handlers.js'
 
-// runs a clean after each test case (e.g. clearing jsdom)
-afterEach(() => {
-  cleanup()
-})
+export const server = setupServer(...handlers)
+
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
