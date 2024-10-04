@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import SimpleSlider from '../../Components/SimpleSlider/SimpleSlider'
 import Hero from '../../Components/Hero/Hero'
 import './Home.css'
+import { MovieCardProps } from '../../Components/MovieCard/MovieCard'
 
 interface Movie {
   id: number
@@ -39,9 +40,15 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
 
   const trendingMovies = movies.filter(movie => movie.isTrending)
 
-  const nonTrendingMovies = movies.filter(movie => !movie.isTrending)
-  nonTrendingMovies.sort(() => Math.random() - 0.5) 
-  const recommendedMovies: MovieCardProps[] = nonTrendingMovies.slice(0, 10)
+
+  const nonTrendingMovies = movies.filter(movie => !movie.isTrending);
+  nonTrendingMovies.sort(() => Math.random() - 0.5); 
+  const recommendedMovies: MovieCardProps[] = nonTrendingMovies.slice(0, 10).map(movie => ({
+    ...movie,
+    isBookmarked: bookmarkedMovies.includes(movie.title),
+    onBookmark: () => toggleBookmark(movie.title)
+  }));
+
 
   const heroMovie = nonTrendingMovies[Math.floor(Math.random() * nonTrendingMovies.length)];
 
