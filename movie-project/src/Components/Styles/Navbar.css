@@ -90,6 +90,7 @@
     max-height: 400px;
     overflow-y: auto;
     z-index: 1000;
+    color: #333333;
     width: 300px;
   }
   
