@@ -20,18 +20,14 @@ h3 {
 
 }
 
-.slick-dots {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
 .slick-dots li button:before {
-  font-size: 12px;
+  font-size: 0.8rem;
   color: var(--color-yellow);
 }
 
 .slick-dots li.slick-active button:before {
   color: var(--color-yellow);
+  
 }
 
 .slick-arrow {
