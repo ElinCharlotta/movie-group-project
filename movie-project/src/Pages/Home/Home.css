@@ -1,0 +1,17 @@
+body {
+    background-color: rgb(51, 51, 51);
+    color: var(--color-white);
+}
+
+.trending-header,
+.recommended-header {
+    text-align: left;
+    margin-top: 3rem;
+    margin-left: 2.6rem;
+    margin-bottom: 0rem;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.1rem;
+
+
+}

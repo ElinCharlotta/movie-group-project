@@ -1,0 +1,81 @@
+.card-container {
+  position: relative;
+  text-align: left;
+  padding: 10px;
+  background-color: var(--color-background);
+}
+
+.thumbnail-wrapper {
+  position: relative;
+  height: auto;
+}
+
+.thumbnail {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.rating-overlay {
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  background-color: var(--color-yellow-transparent);
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+}
+
+.rating {
+  color: var(--color-white);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.year {
+  margin: 0.6rem 0;
+  font-size: 1rem;
+  color: var(--color-yellow);
+  font-weight: 300;
+}
+
+.movie-genre {
+  color: var(--color-yellow);
+  font-size: 1rem;
+  margin-top: 0.6rem;
+}
+
+.movie-title {
+  margin: 0.6rem 0;
+  font-size: 1rem;
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.bookmark-button {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.6rem;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.bookmark-button:hover {
+  background-color: var(--color-yellow-transparent);
+}
+
+.bookmark-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-white);
+  transition: color 0.3s ease, fill 0.3s ease;
+}
+
+.bookmark-icon.filled {
+  color: var(--color-yellow);
+  fill: var(--color-yellow);
+}
