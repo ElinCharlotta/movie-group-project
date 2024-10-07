@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import SimpleSlider from '../../Components/SimpleSlider/SimpleSlider'
 import Hero from '../../Components/Hero/Hero'
 import './Home.css'
-import { MovieCardProps } from '../../Components/MovieCard/MovieCard'
 
 interface Movie {
   id: number
