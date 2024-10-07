@@ -33,6 +33,7 @@ const Categories: React.FC = () => {
   const handleCategoryData = (value: string) => {
     const updatedProductData = totalMovies.filter(item => item.genre === value)
     setMovies(updatedProductData)
+    
   }
 
   return (
