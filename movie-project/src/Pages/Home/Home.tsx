@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import SimpleSlider from '../../Components/SimpleSlider/SimpleSlider'
 import Hero from '../../Components/Hero/Hero'
 import './Home.css'
@@ -36,20 +36,28 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
     })
   }, [])
 
-  if (loading) return <div>Loading...</div>
+  const trendingMovies = useMemo(() => movies.filter(movie => movie.isTrending), [movies])
+  const nonTrendingMovies = useMemo(() => movies.filter(movie => !movie.isTrending), [movies])
 
-  const trendingMovies = movies.filter(movie => movie.isTrending)
-
-  const nonTrendingMovies = movies.filter(movie => !movie.isTrending);
-
-  const recommendedMovies = (() => {
-    const shuffledMovies = nonTrendingMovies.sort(() => Math.random() - 0.5);
-    return shuffledMovies.slice(0, 10).map(movie => ({
-      ...movie,
-    }));
-  })();
+  const recommendedMovies = useMemo(() => {
+    const shuffledMovies = [...nonTrendingMovies].sort(() => Math.random() - 0.5)
+    return shuffledMovies.slice(0, 10)
+  }, [nonTrendingMovies])
   
-  const heroMovie = nonTrendingMovies[Math.floor(Math.random() * nonTrendingMovies.length)];
+  const heroMovie = useMemo(() => 
+    nonTrendingMovies.length > 0
+      ? nonTrendingMovies[Math.floor(Math.random() * nonTrendingMovies.length)]
+      : null,
+    [nonTrendingMovies]
+  )
+
+  const handleBookmark = useCallback((movieTitle: string) => {
+    toggleBookmark(movieTitle)
+  }, [toggleBookmark])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div>
@@ -72,7 +80,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
               movies={trendingMovies.map(movie => ({
                 ...movie,
                 isBookmarked: bookmarkedMovies.includes(movie.title),
-                onBookmark: () => toggleBookmark(movie.title),
+                onBookmark: handleBookmark,
               }))}
             />
             <h2 className='recommended-header'>Recommended</h2>
@@ -80,7 +88,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
               movies={recommendedMovies.map(movie => ({
                 ...movie,
                 isBookmarked: bookmarkedMovies.includes(movie.title),
-                onBookmark: () => toggleBookmark(movie.title),
+                onBookmark: handleBookmark,
               }))}
             />
           </>
