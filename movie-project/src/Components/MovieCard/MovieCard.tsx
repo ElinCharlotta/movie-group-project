@@ -17,15 +17,15 @@ export interface MovieCardProps {
   isTrending?: boolean
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ 
+const MovieCard: React.FC<MovieCardProps> = ({
   id,
-  title, 
-  year, 
-  rating, 
-  thumbnail, 
-  isBookmarked, 
+  title,
+  year,
+  rating,
+  thumbnail,
+  isBookmarked,
   onBookmark,
-  genre
+  genre,
 }) => {
   const navigate = useNavigate()
   const fallbackThumbnail =
@@ -42,28 +42,33 @@ const MovieCard: React.FC<MovieCardProps> = ({
   }
 
   return (
-    <div className="card-container" onClick={handleClick}>
-      <div className="thumbnail-wrapper">
-        <img 
-          src={thumbnail} 
-          alt={`${title} thumbnail`} 
-          className="thumbnail"
-          onError={(e) => (e.currentTarget.src = fallbackThumbnail)}
+    <div className='card-container' onClick={handleClick}>
+      <div className='thumbnail-wrapper'>
+        <img
+          src={thumbnail}
+          alt={`${title} thumbnail`}
+          className='thumbnail'
+          onError={e => (e.currentTarget.src = fallbackThumbnail)}
         />
-        <div className="rating-overlay">
-          <p className="rating">{rating}</p>
+        <div className='rating-overlay'>
+          <p className='rating'>{rating}</p>
         </div>
-        <button 
+        <button
           onClick={handleBookmark}
+          data-testid='bookmark-button'
           className={`bookmark-button ${isBookmarked ? 'bookmarked' : ''}`}
-          aria-label={isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"}
+          aria-label={
+            isBookmarked ? 'Remove from bookmarks' : 'Add to bookmarks'
+          }
         >
-          <Bookmark className={`bookmark-icon ${isBookmarked ? 'filled' : ''}`} />
+          <Bookmark
+            className={`bookmark-icon ${isBookmarked ? 'filled' : ''}`}
+          />
         </button>
       </div>
-      <h3 className="movie-title">{title}</h3>
-      <p className="year">{year}</p>
-      {genre && <p className="movie-genre">{genre}</p>}
+      <h3 className='movie-title'>{title}</h3>
+      <p className='year'>{year}</p>
+      {genre && <p className='movie-genre'>{genre}</p>}
     </div>
   )
 }
