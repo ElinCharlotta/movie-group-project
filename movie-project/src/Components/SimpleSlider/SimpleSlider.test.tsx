@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import SimpleSlider from './SimpleSlider'
 import { BrowserRouter } from 'react-router-dom'
