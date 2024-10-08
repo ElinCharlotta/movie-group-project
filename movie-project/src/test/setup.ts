@@ -1,7 +1,8 @@
 import '@testing-library/jest-dom'
-import { beforeAll, afterEach, afterAll } from 'vitest';
-import { setupServer } from 'msw/node';
-import { handlers } from '../mocks/handlers';
+import { beforeAll, afterEach, afterAll } from 'vitest'
+import { setupServer } from 'msw/node'
+import { handlers } from '../mocks/handlers.ts'
+
 
 export const server = setupServer(...handlers)
 
