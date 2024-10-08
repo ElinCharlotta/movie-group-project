@@ -1,7 +1,8 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Search, Projector, Menu, Film } from 'lucide-react'
+import Fuse from 'fuse.js'
 import './Styles/Navbar.css'
 import moviesData from '../data/movies.json'
 
@@ -21,17 +22,24 @@ export default function Navbar() {
   const [movies] = useState<Movie[]>(moviesData)
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>([])
 
+  const fuse = useMemo(
+    () =>
+      new Fuse(movies, {
+        keys: ['title', 'actors', 'genre'],
+        threshold: 0.3,
+        includeScore: true,
+      }),
+    [movies],
+  )
+
   useEffect(() => {
-    const results = movies.filter(
-      movie =>
-        movie.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        movie.actors.some(actor =>
-          actor.toLowerCase().includes(searchTerm.toLowerCase()),
-        ) ||
-        movie.genre.toLowerCase().includes(searchTerm.toLowerCase()),
-    )
-    setFilteredMovies(results)
-  }, [searchTerm, movies])
+    if (searchTerm) {
+      const results = fuse.search(searchTerm)
+      setFilteredMovies(results.map(result => result.item))
+    } else {
+      setFilteredMovies([])
+    }
+  }, [searchTerm, fuse])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -52,19 +60,24 @@ export default function Navbar() {
   return (
     <nav className='navbar'>
       <div className='navbar-header'>
-        <Projector color='white' size={40} className='nav-icon' data-testid="app-logo" />
+        <Projector
+          color='white'
+          size={40}
+          className='nav-icon'
+          data-testid='app-logo'
+        />
         <button
           className='mobile-menu-toggle'
           onClick={toggleMenu}
           aria-label='Toggle menu'
-          data-testid="mobile-menu-toggle"
+          data-testid='mobile-menu-toggle'
         >
           <Menu size={40} />
         </button>
       </div>
       <ul className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
         <li>
-          <Link to='/' onClick={() => setIsMenuOpen(false)} >
+          <Link to='/' onClick={() => setIsMenuOpen(false)}>
             Home
           </Link>
         </li>
