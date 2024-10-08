@@ -1,4 +1,3 @@
-import React from 'react'
 import { describe, it, expect, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -64,5 +63,60 @@ describe('Navbar Component - Desktop View', () => {
   it('does not display the mobile menu toggle button', () => {
     const menuToggle = screen.getByTestId('mobile-menu-toggle')
     expect(menuToggle).toBeInTheDocument()
+  })
+
+  describe('Fuzzy Search Functionality', () => {
+    it('finds exact matches', async () => {
+      const searchInput = screen.getByRole('searchbox', {
+        name: /search movies/i,
+      })
+      const user = userEvent.setup()
+      await user.type(searchInput, 'The Godfather')
+
+      expect(await screen.findByText('The Godfather')).toBeInTheDocument()
+      expect(await screen.findByText('(1972)')).toBeInTheDocument()
+    })
+  })
+
+  it('finds partial matches', async () => {
+    const searchInput = screen.getByRole('searchbox', {
+      name: /search movies/i,
+    })
+    const user = userEvent.setup()
+    await user.type(searchInput, 'Godfath')
+
+    expect(await screen.findByText('The Godfather')).toBeInTheDocument()
+  })
+
+  it('finds matches with typos', async () => {
+    const searchInput = screen.getByRole('searchbox', {
+      name: /search movies/i,
+    })
+    const user = userEvent.setup()
+    await user.type(searchInput, 'Shawshenk')
+
+    expect(
+      await screen.findByText('The Shawshank Redemption'),
+    ).toBeInTheDocument()
+  })
+
+  it('find matches in genres', async () => {
+    const searchInput = screen.getByRole('searchbox', {
+      name: /search movies/i,
+    })
+    const user = userEvent.setup()
+    await user.type(searchInput, 'Crime')
+
+    expect(await screen.findByText('The Godfather')).toBeInTheDocument()
+  })
+
+  it('displays no movies found when there are no matches', async () => {
+    const searchInput = screen.getByRole('searchbox', {
+      name: /search movies/i,
+    })
+    const user = userEvent.setup()
+    await user.type(searchInput, 'asdasd')
+
+    expect(await screen.findByText('No movies found')).toBeInTheDocument()
   })
 })
