@@ -34,7 +34,15 @@ export default function App() {
             />
           }
         />
-        <Route path='/movie/:id' element={<MovieView />} />
+        <Route
+          path='/movie/:id'
+          element={
+            <MovieView
+              bookmarkedMovies={bookmarkedMovies}
+              toggleBookmark={toggleBookmark}
+            />
+          }
+        />
       </Routes>
     </div>
   )
