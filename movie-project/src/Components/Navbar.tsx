@@ -1,12 +1,13 @@
 import React from 'react'
 import { useState, useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Search, Projector, Menu, Film } from 'lucide-react'
 import Fuse from 'fuse.js'
 import './Styles/Navbar.css'
 import moviesData from '../data/movies.json'
 
 interface Movie {
+  id: number
   title: string
   year: number
   rating: string
@@ -19,8 +20,9 @@ interface Movie {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const [movies] = useState<Movie[]>(moviesData)
+  const [movies] = useState<Movie[]>(moviesData.map((movie, index) => ({ ...movie, id: index + 1 })))
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>([])
+  const navigate = useNavigate()
 
   const fuse = useMemo(
     () =>
@@ -55,6 +57,11 @@ export default function Navbar() {
     e.currentTarget.onerror = null
     e.currentTarget.style.display = 'none'
     e.currentTarget.nextElementSibling?.classList.remove('hidden')
+  }
+
+  const handleMovieClick = (movieId: number) => {
+    navigate(`/movie/${movieId}`)
+    setSearchTerm('')
   }
 
   return (
@@ -106,8 +113,13 @@ export default function Navbar() {
       </div>
       {searchTerm && (
         <div className='search-results' role='listbox'>
-          {filteredMovies.map((movie, index) => (
-            <div key={index} className='search-result-item' role='option'>
+          {filteredMovies.map((movie) => (
+            <div
+              key={movie.id}
+              className='search-result-item'
+              role='option'
+              onClick={() => handleMovieClick(movie.id)}
+            >
               <div className='search-result-poster-container'>
                 <img
                   src={movie.thumbnail}
