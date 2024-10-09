@@ -15,6 +15,7 @@ export interface MovieCardProps {
   genre?: string
   synopsis?: string
   isTrending?: boolean
+
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({
