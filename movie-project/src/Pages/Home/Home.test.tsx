@@ -1,4 +1,3 @@
-// Home.test.tsx
 import { it, expect, beforeEach, describe } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -57,4 +56,3 @@ describe('Home Component', () => {
 
 })
 })
-
