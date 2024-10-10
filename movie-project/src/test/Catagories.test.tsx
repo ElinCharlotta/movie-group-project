@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import Categories from '../Pages/Categories.tsx'
-import { describe, it, expect,test } from 'vitest'
+import {  it, expect } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
 it('renders correctly',  () => {
