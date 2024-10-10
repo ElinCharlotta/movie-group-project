@@ -13,11 +13,12 @@ interface MovieProps {
 }
 
 const Categories: React.FC = () => {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [movies, setMovies] = useState<MovieProps[]>([])
   const [filterCategory, setFilterCategory] = useState<MovieProps[]>([])
   const [totalMovies, setTotalMovies] = useState<MovieProps[]>([])
-  const navigate = useNavigate()
+  
 
   useEffect(() => {
     import('../data/movies.json').then(res => {
@@ -38,14 +39,15 @@ const Categories: React.FC = () => {
 
   const categoryItems = filterCategory.map(item => item.genre)
   const filterbarData = [...new Set(categoryItems)]
-
+  const fallbackThumbnail =
+    'https://www.shutterstock.com/image-vector/illustration-35mm-film-frame-broken-600nw-293386859.jpg'
   const handleCategoryData = (value: string) => {
     const updatedProductData = totalMovies.filter(item => item.genre === value)
     setMovies(updatedProductData)
   }
 
   const handleMovieClick = (movieId: number) => {
-    navigate(`/movie/${movieId}`)
+   navigate(`/movie/${movieId}`)
   }
 
   return (
@@ -81,6 +83,7 @@ const Categories: React.FC = () => {
               src={movie.thumbnail}
               alt={movie.title}
               className='movie-thumbnail'
+              onError={e => (e.currentTarget.src = fallbackThumbnail)}
             />
             <div className='movie-content'>
               <h3 className='movie-title'>{movie.title}</h3>
