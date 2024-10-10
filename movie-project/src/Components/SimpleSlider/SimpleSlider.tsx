@@ -17,7 +17,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
   const settings = {
     dots: true,
     infinite: uniqueMovies.length > 4,
-    speed: 500,
+    speed: 400,
     slidesToShow: Math.min(4, uniqueMovies.length),
     slidesToScroll: 1,
     responsive: [

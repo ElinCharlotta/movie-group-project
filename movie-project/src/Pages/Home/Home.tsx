@@ -18,6 +18,7 @@ interface Movie {
 interface HomeProps {
   bookmarkedMovies: string[]
   toggleBookmark: (movieTitle: string) => void
+  movies: Movie[];
 }
 
 const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
