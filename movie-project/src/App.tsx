@@ -1,4 +1,3 @@
-import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home/Home'
 import Categories from './Pages/Categories'
@@ -34,7 +33,15 @@ export default function App() {
             />
           }
         />
-        <Route path='/movie/:id' element={<MovieView />} />
+        <Route
+          path='/movie/:id'
+          element={
+            <MovieView
+              bookmarkedMovies={bookmarkedMovies}
+              toggleBookmark={toggleBookmark}
+            />
+          }
+        />
       </Routes>
     </div>
   )

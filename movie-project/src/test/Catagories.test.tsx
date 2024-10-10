@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import Categories from '../Pages/Categories.tsx'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { describe, it, expect, beforeEach } from 'vitest'
+import {  it, expect } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 import '../test/setup.ts'
 
