@@ -71,32 +71,42 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
         />
       )}
 
-      <section>
-        {trendingMovies.length > 0 ? (
-          <>
-            <h2 className='trending-header'>Trending</h2>
-            <SimpleSlider
-              movies={trendingMovies.map(movie => ({
-                ...movie,
-                isBookmarked: bookmarkedMovies.includes(movie.title),
-                onBookmark: handleBookmark,
-              }))}
-            />
-            <h2 className='recommended-header'>Recommended</h2>
-            <SimpleSlider
-              movies={recommendedMovies.map(movie => ({
-                ...movie,
-                isBookmarked: bookmarkedMovies.includes(movie.title),
-                onBookmark: handleBookmark,
-              }))}
-            />
-          </>
-        ) : (
-          <p>No trending movies available.</p>
-        )}
-      </section>
-    </div>
+<section>
+  {/* Visa Trending Movies */}
+  {trendingMovies.length > 0 ? (
+    <>
+      <h2 className='trending-header'>Trending</h2>
+      <SimpleSlider
+     
+        movies={trendingMovies.map(movie => ({
+          ...movie,
+          isBookmarked: bookmarkedMovies.includes(movie.title),
+          onBookmark: handleBookmark,
+        }))}
+      />
+    </>
+  ) : (
+    <p>No trending movies available.</p>
+  )}
+
+  {/* Visa Recommended Movies */}
+  {recommendedMovies.length > 0 ? (
+    <>
+      <h2 className='recommended-header'>Recommended</h2>
+      <SimpleSlider
+      
+        movies={recommendedMovies.map(movie => ({
+          ...movie,
+          isBookmarked: bookmarkedMovies.includes(movie.title),
+          onBookmark: handleBookmark,
+        }))}
+      />
+    </>
+  ) : (
+    <p>No recommended movies available.</p>
+  )}
+</section>
+</div>
   )
 }
-
 export default Home
