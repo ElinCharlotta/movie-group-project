@@ -40,7 +40,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
 
   const recommendedMovies = useMemo(() => {
     const shuffledMovies = [...nonTrendingMovies].sort(() => Math.random() - 0.5)
-    return shuffledMovies.slice(0, 10)
+    return shuffledMovies
   }, [nonTrendingMovies])
   
   const heroMovie = useMemo(() => 
@@ -82,6 +82,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
           ...movie,
           isBookmarked: bookmarkedMovies.includes(movie.title),
           onBookmark: handleBookmark,
+          ariaLabel: 'Trending',
         }))}
       />
     </>
@@ -99,6 +100,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
           ...movie,
           isBookmarked: bookmarkedMovies.includes(movie.title),
           onBookmark: handleBookmark,
+          ariaLabel: 'Recommended'
         }))}
       />
     </>
