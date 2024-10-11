@@ -2,16 +2,17 @@ import { it, expect, beforeEach, describe } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Home from '../Home/Home'
-
-beforeEach(() => {
-  render(
-    <Router>
-      <Home bookmarkedMovies={[]} toggleBookmark={() => {}} />
-    </Router>,
-  )
-})
+import '../../test/setup.ts'
 
 describe('Home Component', () => {
+  beforeEach(() => {
+    render(
+      <Router>
+        <Home bookmarkedMovies={[]} toggleBookmark={() => {}} />
+      </Router>,
+    )
+  })
+
   it('should show loading state initially', () => {
     const loadingText = screen.getByText(/Loading.../i)
     expect(loadingText).toBeInTheDocument()
@@ -27,7 +28,7 @@ describe('Home Component', () => {
     expect(heroHeading).toHaveClass('hero-title')
   })
 
-  it('should render trending and recommended sections', async () => {
+  it('should render trending and recommended heading', async () => {
     await waitFor(() => {
       expect(
         screen.getByRole('heading', { name: /trending/i }),
@@ -36,23 +37,41 @@ describe('Home Component', () => {
         screen.getByRole('heading', { name: /recommended/i }),
       ).toBeInTheDocument()
     })
-    //Inte pålitligt test
-    // Fetch all headings representing movies
-//     const movieCards = screen.getAllByRole('heading')
-//     const isTrending = 'Trending'
-//     console.log(movieCards)
+  })
 
-//     // Check that the 'Trending' section is rendered
-//     console.log(movieCards.map(card => card.textContent))
+  it('do not render trending movies in recommended section', async () => {
+ 
+    await waitFor(() => {
+      expect(screen.queryByText(/Loading.../)).not.toBeInTheDocument()
+    })
 
-//     expect(movieCards.map(card => card.textContent)).toContain(isTrending)
+    // check that there are trending movies
+    const trendingMovies = screen.getAllByLabelText(/Trending/i)
+    expect(trendingMovies.length).toBeGreaterThan(0)
 
-//     expect(movieCards.map(card => card.textContent)).toContain('Recommended')
-//   })
+    const firstTrendingMovie = screen.getAllByAltText(
+      'Star Wars: Episode V - The Empire Strikes Back thumbnail',
+    )
+    expect(firstTrendingMovie[0]).toBeInTheDocument()
 
-  // testa att filmen syns i den rekommenderade sektionen
-  // getByRole heading kolla längden i den rekommenderade sektionen
-  // testa att första filmen i trending inte finns med i den rekommenderade
+    // check that the first trending movie is NOT in the "Recommended" section
+    const recommendedMovies = screen.getAllByLabelText(/Recommended/i)
 
-})
+    recommendedMovies.forEach(movie => {
+      expect(movie).not.toHaveTextContent(
+        'Star Wars: Episode V - The Empire Strikes Back thumbnail',
+      )
+    })
+  })
+
+  it('should render movies in the recommended section', async () => {
+    // Vänta på att sidan laddar klart
+    await waitFor(() => {
+      expect(screen.queryByText(/Loading.../i)).not.toBeInTheDocument()
+    })
+  
+    // Testa att det finns minst ett visst antal filmer i den rekommenderade sektionen
+    const recommendedMovies = screen.getAllByLabelText(/Recommended/i)
+    expect(recommendedMovies.length).toBeGreaterThan(0)
+  })
 })

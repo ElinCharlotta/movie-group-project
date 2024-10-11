@@ -7,9 +7,10 @@ import MovieCard, { MovieCardProps } from '../MovieCard/MovieCard'
 
 interface SimpleSliderProps {
   movies: (Omit<MovieCardProps, 'onBookmark'> & { onBookmark: (title: string) => void })[]
+  ariaLabel?: string; 
 }
 
-const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
+const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies, }) => {
   const uniqueMovies = movies.filter((movie, index, self) =>
     index === self.findIndex((t) => t.id === movie.id)
   )
@@ -17,7 +18,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
   const settings = {
     dots: true,
     infinite: uniqueMovies.length > 4,
-    speed: 500,
+    speed: 400,
     slidesToShow: Math.min(4, uniqueMovies.length),
     slidesToScroll: 1,
     responsive: [
@@ -45,6 +46,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
           {...uniqueMovies[0]}
           isBookmarked={uniqueMovies[0].isBookmarked}
           onBookmark={uniqueMovies[0].onBookmark}
+      
         />
       </div>
     )
@@ -59,6 +61,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies }) => {
               {...movie}
               isBookmarked={movie.isBookmarked}
               onBookmark={movie.onBookmark}
+          
             />
           </div>
         ))}

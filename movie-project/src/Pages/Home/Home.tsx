@@ -82,6 +82,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
           ...movie,
           isBookmarked: bookmarkedMovies.includes(movie.title),
           onBookmark: handleBookmark,
+          ariaLabel: 'Trending',
         }))}
       />
     </>
@@ -99,6 +100,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
           ...movie,
           isBookmarked: bookmarkedMovies.includes(movie.title),
           onBookmark: handleBookmark,
+          ariaLabel: 'Recommended'
         }))}
       />
     </>

@@ -15,6 +15,7 @@ export interface MovieCardProps {
   genre?: string
   synopsis?: string
   isTrending?: boolean
+  ariaLabel?: string
 
 }
 
@@ -27,6 +28,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
   isBookmarked,
   onBookmark,
   genre,
+  ariaLabel,
 }) => {
   const navigate = useNavigate()
   const fallbackThumbnail =
@@ -67,6 +69,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
           />
         </button>
       </div>
+      <div aria-label={ariaLabel}></div>
       <h3 className='movie-title'>{title}</h3>
       <p className='year'>{year}</p>
       {genre && <p className='movie-genre'>{genre}</p>}
