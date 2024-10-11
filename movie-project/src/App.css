@@ -17,4 +17,5 @@
 body {
     background-color: var(--color-background);
     color: var(--color-white);
+    padding-bottom: 180px;
 }

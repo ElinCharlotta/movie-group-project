@@ -1,8 +1,7 @@
 .footer {
   margin-top: 2rem;
   background-color: #1a1a1a;
-  color: white;
-  text-align: center;
+  color:var(--color-white);  text-align: center;
   padding: 20px;
   position: fixed;
   bottom: 0;
@@ -15,8 +14,8 @@
 }
 
 .footer nav a {
-  color: white;
-  margin: 0 10px;
+  color:var(--color-white);
+  margin: 0 1rem;
   text-decoration: none;
   padding-bottom: 2rem;
 }
