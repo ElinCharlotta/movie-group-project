@@ -4,11 +4,12 @@
   color: white;
   text-align: center;
   padding: 20px;
-  position: relative;
+  position: fixed;
   bottom: 0;
   width: 100%;
 }
-.footer-text{
+
+.footer-text {
   padding-bottom: 1rem;
   padding-top: 2rem;
 }
@@ -17,6 +18,7 @@
   color: white;
   margin: 0 10px;
   text-decoration: none;
+  padding-bottom: 2rem;
 }
 
 .footer nav a:hover {

@@ -3,6 +3,7 @@ import './Footer.css';
 
 const Footer = () => {
   return (
+  
     <footer className="footer">
       <p className='footer-text'>© 2024 MovieBuff. Alla rättigheter förbehållna.</p>
       <nav aria-label="Footer navigation">
@@ -11,6 +12,7 @@ const Footer = () => {
         <Link to="/bookmarked">Bokmärkta</Link>
       </nav>
     </footer>
+
   );
 };
 
