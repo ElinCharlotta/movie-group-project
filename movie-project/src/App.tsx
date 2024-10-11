@@ -5,6 +5,7 @@ import Bookmarked from './Pages/Bookmarked'
 import Navbar from './Components/Navbar'
 import { useBookmarks } from './hooks/useBookmarks'
 import MovieView from './Pages/MovieView'
+import Footer from './Components/Footer/Footer'
 import './App.css'
 
 export default function App() {
@@ -43,6 +44,7 @@ export default function App() {
           }
         />
       </Routes>
+      <Footer />
     </div>
   )
 }
