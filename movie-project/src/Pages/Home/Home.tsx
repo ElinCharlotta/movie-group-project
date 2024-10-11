@@ -40,7 +40,7 @@ const Home: React.FC<HomeProps> = ({ bookmarkedMovies, toggleBookmark }) => {
 
   const recommendedMovies = useMemo(() => {
     const shuffledMovies = [...nonTrendingMovies].sort(() => Math.random() - 0.5)
-    return shuffledMovies
+    return shuffledMovies.slice(0, 10)
   }, [nonTrendingMovies])
   
   const heroMovie = useMemo(() => 
