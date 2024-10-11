@@ -10,7 +10,7 @@ interface SimpleSliderProps {
   ariaLabel?: string; 
 }
 
-const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies, ariaLabel }) => {
+const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies, }) => {
   const uniqueMovies = movies.filter((movie, index, self) =>
     index === self.findIndex((t) => t.id === movie.id)
   )
@@ -46,14 +46,14 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies, ariaLabel }) => {
           {...uniqueMovies[0]}
           isBookmarked={uniqueMovies[0].isBookmarked}
           onBookmark={uniqueMovies[0].onBookmark}
-          aria-label={ariaLabel}
+      
         />
       </div>
     )
   }
 
   return (
-    <div className='slider' aria-label={ariaLabel}>
+    <div className='slider'>
       <Slider {...settings}>
         {uniqueMovies.map((movie) => (
           <div className='slide' key={movie.id}>
@@ -61,7 +61,7 @@ const SimpleSlider: React.FC<SimpleSliderProps> = ({ movies, ariaLabel }) => {
               {...movie}
               isBookmarked={movie.isBookmarked}
               onBookmark={movie.onBookmark}
-              aria-label={ariaLabel}
+          
             />
           </div>
         ))}

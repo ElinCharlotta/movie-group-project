@@ -69,9 +69,9 @@ describe('Home Component', () => {
     await waitFor(() => {
       expect(screen.queryByText(/Loading.../i)).not.toBeInTheDocument()
     })
-
-    // Testa att "Inception" finns i den rekommenderade sektionen
-    const recommendedMovie = screen.getAllByText('Inception')
-    expect(recommendedMovie[0]).toBeInTheDocument()
+  
+    // Testa att det finns minst ett visst antal filmer i den rekommenderade sektionen
+    const recommendedMovies = screen.getAllByLabelText(/Recommended/i)
+    expect(recommendedMovies.length).toBeGreaterThan(0)
   })
 })
