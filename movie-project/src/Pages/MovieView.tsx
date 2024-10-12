@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { Bookmark } from 'lucide-react'
+import fallbackImage from "/placeholder.png"
+import './MovieView.css';
 
 export interface Movie {
   id: number
@@ -11,6 +13,7 @@ export interface Movie {
   genre: string
   synopsis: string
   thumbnail: string
+  
 }
 
 interface BookmarkedProps {
@@ -22,12 +25,15 @@ export default function MovieView({
   bookmarkedMovies,
   toggleBookmark,
 }: BookmarkedProps) {
+  console.log("hej")
   const { id } = useParams<{ id: string }>()
-
+const location = useLocation()
+console.log(location)
   const [movie, setMovie] = useState<Movie | null>(null)
   const [isBookmarked, setIsBookmarked] = useState(false)
 
   useEffect(() => {
+    console.log(id)
     if (id) {
       import('../data/movies.json').then(res => {
         const movies: Movie[] = res.default.map(
@@ -59,9 +65,9 @@ export default function MovieView({
   }
 
   return (
-    <div className='container mx-auto px-4 py-8'>
+    <div className="container" >
       <div className='flex flex-col md:flex-row gap-8'>
-        <div className='md:w-1/3'>
+        <div className='bookmark-btn'>
           <button
             onClick={handleBookmark}
             data-testid='bookmark-button'
@@ -74,20 +80,26 @@ export default function MovieView({
               className={`bookmark-icon ${isBookmarked ? 'filled' : ''}`}
             />
           </button>
+          <div className='movie-container'>
           <img
             src={movie.thumbnail}
             alt={movie.title}
             className='w-full h-auto rounded-lg shadow-lg'
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src=fallbackImage;
+            }}
           />
         </div>
-        <div className='md:w-2/3'>
-          <h1 className='text-3xl font-bold mb-4'>{movie.title}</h1>
-          <p className='text-xl mb-2'>Year: {movie.year}</p>
-          <p className='text-xl mb-2'>Rating: {movie.rating}</p>
-          <p className='text-xl mb-2'>Genre: {movie.genre}</p>
-          <p className='text-xl mb-4'>Actors: {movie.actors.join(', ')}</p>
-          <h2 className='text-2xl font-semibold mb-2'>Synopsis</h2>
-          <p className='text-lg'>{movie.synopsis}</p>
+        </div>
+        <div className='pop-up'>
+          <h1 className='movie-title'>Title: {movie.title}</h1>
+          <p className='year'>Year: {movie.year}</p>
+          <p className='rating'>Rating: {movie.rating}</p>
+          <p className='genre'>Genre: {movie.genre}</p>
+          <p className='actors'>Actors: {movie.actors.join(', ')}</p>
+          <h2 className='synopsis'>Synopsis</h2>
+          <p className='text'>{movie.synopsis}</p>
         </div>
       </div>
     </div>
