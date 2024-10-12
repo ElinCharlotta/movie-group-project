@@ -13,6 +13,7 @@ export interface Movie {
   genre: string
   synopsis: string
   thumbnail: string
+  
 }
 
 interface BookmarkedProps {
